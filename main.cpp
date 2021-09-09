@@ -7,9 +7,9 @@ int main(int argc, char* args[])
   int num1;
 
  scanf("%d %d",&num,&num1);
-  printf("%d + %d = %d",num,num1,num+num1);
+  printf("%d + %d = %d\n",num,num1,num+num1);
 
-  printf("%d + %d = %d",num,num1,num-num1);
+  printf("%d - %d = %d",num,num1,num-num1);
 
 
 
