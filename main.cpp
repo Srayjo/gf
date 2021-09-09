@@ -26,6 +26,11 @@ int width, int flags)
   return true;
 }
 
+void UpDate()
+{
+  SDL_SetRenderDrawColor(g_pRenderer,1,45,145,250);
+}
+
 void render()
 {
   SDL_RenderClear(g_pRenderer);
@@ -34,9 +39,12 @@ void render()
 
 int main(int argc, char* args[])
 {
-    if(init("Breaking Up HelloSDL",SDL_WINDOWPOS_CENTERED,       SDL_WINDOWPOS_CENTERED,640,480, SDL_WINDOW_SHOWN))
+  if(SDL_Init(SDL_INIT_EVERYTHING)>=0)
+  {
+    if(init("Breaking Up HelloSDL",SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,640,480, SDL_WINDOW_SHOWN))
   {
     g_bRunning=true;
+    
   }
   else
   {
@@ -46,9 +54,15 @@ int main(int argc, char* args[])
   while(g_bRunning)
   {
     render();
+    SDL_Delay(5000);
+    UpDate();
+    render();
+    SDL_Delay(5000);
+    g_bRunning=false;
+    SDL_Quit();
   }
 
-  SDL_Quit();
+  }
   return 0;
 }
 // 명규 ... 
