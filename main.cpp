@@ -1,17 +1,30 @@
 #include <stdio.h>
+#include<SDL.h>
+SDL_Window* g_pWindow=0;
+SDL_Renderer* g_pRenderer=0;
 
 int main(int argc, char* args[])
 {
+  if(SDL_Init(SDL_INIT_EVERYTHING)>=0)
+  {
+    g_pWindow=SDL_CreateWindow("HelloSDL",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,512,512,SDL_WINDOW_SHOWN);
 
-  int num;
-  int num1;
+    if(g_pWindow !=0)
+    {
+      g_pRenderer=SDL_CreateRenderer(g_pWindow,-1,0);
+    }
+  }
+  else
+  {
+    return 1;
+  }
 
-  scanf("%d %d",&num,&num1);
-  printf("%d - %d = %d\n",num,num1,num-num1);
+  SDL_SetRenderDrawColor(g_pRenderer,1,45,145,250);
+  SDL_RenderClear(g_pRenderer);
+  SDL_RenderPresent(g_pRenderer);
 
-  printf("%d + %d = %d",num,num1,num+num1);
-
-
+  SDL_Delay(5000);
+  SDL_Quit();
 
   return 0;
 }
