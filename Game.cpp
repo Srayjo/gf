@@ -17,6 +17,27 @@ bool Game::Init(const char *title, int xpos, int ypos, int width, int height, in
       } else{
         return false; // 윈도우가 거짓이기에 생성 실패 
       } 
+
+      SDL_Surface* pTempSurface = SDL_LoadBMP("Assets/rider.bmp");
+
+      m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer,pTempSurface);
+      // SurFace에 저장된 rider.bmp 를 받고 화면에 그려줌
+
+      SDL_FreeSurface(pTempSurface);
+
+      SDL_QueryTexture(m_pTexture,NULL,NULL,&m_sourceRectangle.w,
+      &m_sourceRectangle.h); // 원본 상자의 너비*높이 설정
+
+
+      // 대상상자 너비*높이 설정
+      m_destinationRectangle.w=m_sourceRectangle.w; 
+      m_destinationRectangle.h=m_sourceRectangle.h;
+
+
+      // 원본&대상상자의 위치 설정
+      m_destinationRectangle.x=m_sourceRectangle.x;
+      m_destinationRectangle.y=m_sourceRectangle.y;
+
     } else{
       return false; // SDL 초기화에 대한 if문이 거짓이기에 실패
     }
@@ -32,12 +53,14 @@ bool Game::Init(const char *title, int xpos, int ypos, int width, int height, in
   void Game::render()
   {
     SDL_RenderClear(m_pRenderer);
+    SDL_RenderCopy(m_pRenderer,m_pTexture,&m_sourceRectangle,&m_destinationRectangle);
     SDL_RenderPresent(m_pRenderer);
+    // Texture 일부 영역을 Render의 일부 영역에 복사
   }
 
-  void Game::running()
+  bool Game::running()
   {
-    return m_bRunning; // 게임 루프 작동시킬건지 멈출건지
+    return m_bRunning; // true & false 게임 루프 작동시킬건지 멈출건지
   }  
 
   void Game::handleEvents()
@@ -45,10 +68,10 @@ bool Game::Init(const char *title, int xpos, int ypos, int width, int height, in
     SDL_Event event;
     if(SDL_PollEvent(&event)){
       switch(event.type){
-        case SDL_QUIT;
+        case SDL_QUIT:
         m_bRunning =false; // 게임 루프 종료
         break;
-        default;
+        default:
         break;
       }
     }
@@ -58,5 +81,4 @@ bool Game::Init(const char *title, int xpos, int ypos, int width, int height, in
     SDL_DestroyWindow(m_pWindow);
     SDL_DestroyRenderer(m_pRenderer);
     SDL_Quit();
-  }
-}
+ }
