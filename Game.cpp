@@ -5,7 +5,8 @@ bool Game::Init(const char *title, int xpos, int ypos, int width, int height, in
 {
   // 윈도우 * 랜더러 등 생성을 위해 SDL_Init() 정의
   if (SDL_Init(SDL_INIT_EVERYTHING)==0){
-    m_pWindow = SDL_CreateWindow(title,xpos,ypos,width,height,flags);
+    m_pWindow = SDL_CreateWindow(title,xpos,ypos,width,height,SDL_WINDOW_MAXIMIZED);
+    
     if (m_pWindow !=0){
       m_pRenderer = SDL_CreateRenderer(m_pWindow,-1,0);
 
@@ -30,14 +31,13 @@ bool Game::Init(const char *title, int xpos, int ypos, int width, int height, in
 
 
       // 대상상자 너비*높이 설정
-      m_destinationRectangle.w=m_sourceRectangle.w; 
-      m_destinationRectangle.h=m_sourceRectangle.h;
+      m_destinationRectangle.w=600; 
+      m_destinationRectangle.h=350;
 
 
       // 원본&대상상자의 위치 설정
       m_destinationRectangle.x=m_sourceRectangle.x;
       m_destinationRectangle.y=m_sourceRectangle.y;
-
     } else{
       return false; // SDL 초기화에 대한 if문이 거짓이기에 실패
     }
