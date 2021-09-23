@@ -1,14 +1,19 @@
-#include <stdio.h>
+ #include <stdio.h>
+#include "Game.h"
+Game* g_game=0;
 
 int main(int argc, char* args[])
 {
+  g_game=new Game(); // Game 클래스를 상속
+  g_game->Init("Game Class",100,100,640,480,0);
 
-  int num;
-  int num1;
-
-  scanf("%d %d",&num,&num1);
-  printf("%d + %d = %d",num,num1,num-num1);
-
+  while(g_game->running())
+  {
+    g_game->handleEvents();
+    g_game->update();
+    g_game->render();
+  }
+  g_game->clean();
   return 0;
 }
 // 명규 ... 
