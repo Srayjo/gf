@@ -23,7 +23,7 @@ bool Game::Init(const char *title, int xpos, int ypos, int width, int height, in
       // SDL_Surface* pTempSurface = SDL_LoadBMP("Assets/rider.bmp");
 
       // png 파일을 불러오기 위한 image.h의 함수 호출
-      SDL_Surface* pTempSurface=IMG_Load("Assets/animate-alpha.png");
+      SDL_Surface* pTempSurface=IMG_Load("Assets/rider.bmp");
 
       m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer,pTempSurface);
       // SurFace에 저장된 rider.bmp 를 받고 화면에 그려줌
@@ -33,17 +33,21 @@ bool Game::Init(const char *title, int xpos, int ypos, int width, int height, in
      /* SDL_QueryTexture(m_pTexture,NULL,NULL,&m_sourceRectangle.w,
       &m_sourceRectangle.h); // 원본 상자의 너비*높이 설정 */
 
-      m_sourceRectangle.w=128;
-      m_sourceRectangle.h=82;
+      m_sourceRectangle.w=70;
+      m_sourceRectangle.h=70;
 
       // 대상상자 너비*높이 설정
       m_destinationRectangle.w=m_sourceRectangle.w; 
       m_destinationRectangle.h=m_sourceRectangle.h;
 
 
-      // 원본&대상상자의 위치 설정
-      m_destinationRectangle.x=m_sourceRectangle.x;
-      m_destinationRectangle.y=m_sourceRectangle.y;
+      // 원본 상자의 이미지 일부분 출력
+      m_sourceRectangle.x=-20;
+      m_sourceRectangle.y=-20;
+      // 윈도우 상에 이미지를 어디 축에 출력할지
+      m_destinationRectangle.x=100;
+      m_destinationRectangle.y=100;
+
     } else{
       return false; // SDL 초기화에 대한 if문이 거짓이기에 실패
     }
@@ -54,7 +58,6 @@ bool Game::Init(const char *title, int xpos, int ypos, int width, int height, in
 
   void Game::update()
   {
-    m_sourceRectangle.x=128*((SDL_GetTicks()/100)%6);
   }
 
   void Game::render()
