@@ -12,7 +12,7 @@ bool Game::Init(const char *title, int xpos, int ypos, int width, int height, in
       m_pRenderer = SDL_CreateRenderer(m_pWindow,-1,0);
 
       if(m_pRenderer !=0){
-        SDL_SetRenderDrawColor(m_pRenderer,255,0,0,255);
+        SDL_SetRenderDrawColor(m_pRenderer,255,255,255,255);
       } else{
         return false; // 랜더링 생성 실패
       }
@@ -30,23 +30,36 @@ bool Game::Init(const char *title, int xpos, int ypos, int width, int height, in
 
       SDL_FreeSurface(pTempSurface);
 
-     /* SDL_QueryTexture(m_pTexture,NULL,NULL,&m_sourceRectangle.w,
-      &m_sourceRectangle.h); // 원본 상자의 너비*높이 설정 */
+      SDL_QueryTexture(m_pTexture,NULL,NULL,&m_sourceRectangle.w,
+      &m_sourceRectangle.h); // 원본 상자의 너비*높이 설정 
 
-      m_sourceRectangle.w=70;
-      m_sourceRectangle.h=70;
+       // 원본상자의 이미지 크기 설정
 
-      // 대상상자 너비*높이 설정
+     /* m_sourceRectangle.w=70;  
+       m_sourceRectangle.h=70; */
+
+      m_sourceRectangle.w=width; 
+      m_sourceRectangle.h=height; 
+      // 전체화면
+
+      // 대상상자 너비*높이 설정 -> 원본상자의 사이즈 그대로 가져옴
       m_destinationRectangle.w=m_sourceRectangle.w; 
       m_destinationRectangle.h=m_sourceRectangle.h;
 
+      m_sourceRectangle.w=width;
+      m_sourceRectangle.h=height;
 
-      // 원본 상자의 이미지 일부분 출력
-      m_sourceRectangle.x=-20;
-      m_sourceRectangle.y=-20;
+      // 원본 상자의 이미지에서 내가 쓸 부분 출력
+
+     /* m_sourceRectangle.x=-20; -> 말 머리 부분
+      m_sourceRectangle.y=-20; */
+
+      /*m_sourceRectangle.x=50; -> 말 꼬리 부분
+      m_sourceRectangle.y=50; */ 
+
       // 윈도우 상에 이미지를 어디 축에 출력할지
-      m_destinationRectangle.x=100;
-      m_destinationRectangle.y=100;
+     /* m_destinationRectangle.x=100;
+      m_destinationRectangle.y=100; */
 
     } else{
       return false; // SDL 초기화에 대한 if문이 거짓이기에 실패
