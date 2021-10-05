@@ -1,6 +1,6 @@
 #include "Game.h"
 #include "SDL.h"
-
+#include "SDL_image.h"
 #include "TextureManager.h"
 
 bool Game::Init(const char *title, int xpos, int ypos, int width, int height, int flags)
@@ -13,7 +13,7 @@ bool Game::Init(const char *title, int xpos, int ypos, int width, int height, in
       m_pRenderer = SDL_CreateRenderer(m_pWindow,-1,0);
 
       if(m_pRenderer !=0){
-        SDL_SetRenderDrawColor(m_pRenderer,5,145,145,255);
+        SDL_SetRenderDrawColor(m_pRenderer,0,0,0,255);
       } else{
         return false; // 랜더링 생성 실패
       }
@@ -22,7 +22,10 @@ bool Game::Init(const char *title, int xpos, int ypos, int width, int height, in
       } 
 
       // png 파일을 불러오기 위한 image.h의 함수 호출
-       m_textureManager.load("Assets/animate-alpha.png","animate",m_pRenderer);
+      if( !TheTextureManager::Instance()->load("Assets/animate-alpha.png","animate",m_pRenderer))
+      {
+        return false;
+      }
 
     } else{
       return false; // SDL 초기화에 대한 if문이 거짓이기에 실패
@@ -39,8 +42,9 @@ bool Game::Init(const char *title, int xpos, int ypos, int width, int height, in
 
   void Game::render()
   {
-    m_textureManager.draw("animate", 0, 0, 128, 82, m_pRenderer);
-    m_textureManager.drawFrame("animate", 100, 100, 128, 82, 0, m_currentFrame, m_pRenderer);
+    TheTextureManager::Instance()->draw("animate",0,0,128,82,m_pRenderer);
+
+    TheTextureManager::Instance()->drawFrame("animate",100,100,128,82,0,m_currentFrame,m_pRenderer);
     // Texture 일부 영역을 Render의 일부 영역에 복사
   }
 

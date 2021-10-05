@@ -15,6 +15,8 @@ bool TextureManager::load(std::string fileName,std::string id,SDL_Renderer* pRen
   return false;
 }
 
+TextureManager* TextureManager::s_pInstance = 0;
+
 void TextureManager::draw(std::string id, int x, int y, int width, int height, SDL_Renderer *pRenderer, SDL_RendererFlip flip)
 {
   SDL_Rect srcRect;

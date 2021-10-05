@@ -17,7 +17,6 @@ class Game {
     void handleEvents();
     void clean();
 
-    TextureManager m_textureManager;
     int m_currentFrame;
 
   private:
