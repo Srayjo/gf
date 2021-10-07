@@ -1,8 +1,6 @@
 #ifndef _TextureManager_
 #define _TextureManager_
 
-typedef TextureManager TheTextureManager;
-
 #include "SDL.h"
 #include "map"
 #include "SDL_image.h"
@@ -30,26 +28,10 @@ class TextureManager  {
 
     private:
       TextureManager() {}
-      TextureManager * s_pInstance;
+     static TextureManager * s_pInstance;
       
        std::map<std::string, SDL_Texture*> m_textureMap;
 };
-
-class Singleton{
-
-  private:
-    Singleton() {};
-    static Singleton* instance;
-
-  public:
-    static Singleton* GetInstance()
-    {
-      if(instance == NULL)
-         instance = new Singleton();
-         return instance;
-    }
-};
-
-Singleton* Singleton::instance = NULL;
+typedef TextureManager TheTextureManager;
 
 #endif

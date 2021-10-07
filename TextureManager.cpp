@@ -1,6 +1,23 @@
 #include "TextureManager.h"
 
 
+class Singleton{
+
+  private:
+    Singleton() {};
+    static Singleton* instance;
+
+  public:
+    static Singleton* GetInstance()
+    {
+      if(instance == NULL)
+         instance = new Singleton();
+         return instance;
+    }
+};
+
+Singleton* Singleton::instance = NULL;
+
 bool TextureManager::load(std::string fileName,std::string id,SDL_Renderer* pRenderer){
   SDL_Surface* pTempSurface = IMG_Load(fileName.c_str());
   if(pTempSurface==0) {
