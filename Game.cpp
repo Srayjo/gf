@@ -13,7 +13,7 @@ bool Game::Init(const char *title, int xpos, int ypos, int width, int height, in
       m_pRenderer = SDL_CreateRenderer(m_pWindow,-1,0);
 
       if(m_pRenderer !=0){
-        SDL_SetRenderDrawColor(m_pRenderer,0,0,0,255);
+        SDL_SetRenderDrawColor(m_pRenderer,255,255,0,255);
       } else{
         return false; // 랜더링 생성 실패
       }
@@ -21,7 +21,7 @@ bool Game::Init(const char *title, int xpos, int ypos, int width, int height, in
         return false; // 윈도우가 거짓이기에 생성 실패 
       } 
 
-      // png 파일을 불러오기 위한 image.h의 함수 호출
+      // png 파일을 불러오기 위한 load() 함수 호출
       if( !TheTextureManager::Instance()->load("Assets/animate-alpha.png","animate",m_pRenderer))
       {
         return false;
@@ -42,9 +42,14 @@ bool Game::Init(const char *title, int xpos, int ypos, int width, int height, in
 
   void Game::render()
   {
+    SDL_RenderClear(m_pRenderer);  
+    
     TheTextureManager::Instance()->draw("animate",0,0,128,82,m_pRenderer);
 
-    TheTextureManager::Instance()->drawFrame("animate",100,100,128,82,0,m_currentFrame,m_pRenderer);
+    TheTextureManager::Instance()->drawFrame("animate",492,130,128,82,0,m_currentFrame,m_pRenderer);
+    
+    SDL_RenderPresent(m_pRenderer);
+
     // Texture 일부 영역을 Render의 일부 영역에 복사
   }
 
