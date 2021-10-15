@@ -1,6 +1,5 @@
 #include "Game.h"
 #include "SDL.h"
-#include "SDL_image.h"
 #include "TextureManager.h"
 
 bool Game::Init(const char *title, int xpos, int ypos, int width, int height, int flags)
@@ -11,42 +10,53 @@ bool Game::Init(const char *title, int xpos, int ypos, int width, int height, in
     
     if (m_pWindow !=0){
       m_pRenderer = SDL_CreateRenderer(m_pWindow,-1,0);
-
       if(m_pRenderer !=0){
         SDL_SetRenderDrawColor(m_pRenderer,255,255,0,255);
-      } else{
-        return false; // 랜더링 생성 실패
-      }
-      } else{
-        return false; // 윈도우가 거짓이기에 생성 실패 
-      } 
+      }  
+   } 
 
-      // png 파일을 불러오기 위한 load() 함수 호출
+  
+      // png 파일을 불러오기 위한 load() 함수 호출 !!
       if( !TheTextureManager::Instance()->load("Assets/animate-alpha.png","animate",m_pRenderer))
       {
         return false;
       }
+/*
+      if( !TheTextureManager::Instance()->load("Assets/2D 배경.jpg","2D 배경",m_pRenderer))
+      {
+        return false;
+      } 
+      */
+      m_go.load(100, 100, 128, 82, "animate");
+      m_player.load(300, 300, 128, 82, "animate");
+
 
     } else{
       return false; // SDL 초기화에 대한 if문이 거짓이기에 실패
     }
-
     m_bRunning=true; // SDL,Window,Renderer 생성 및 초기화 성공으로 정상 작동
     return true;
-  }
+  } 
+
 
   void Game::update()
   {
-     m_currentFrame = ( (SDL_GetTicks() / 100 ) % 6);
+
+    m_go.update();
+    m_player.update();
+     // m_currentFrame = ( (SDL_GetTicks() / 100 ) % 6);
   }
 
   void Game::render()
   {
     SDL_RenderClear(m_pRenderer);  
     
-    TheTextureManager::Instance()->draw("animate",0,0,128,82,m_pRenderer);
+    m_go.draw(m_pRenderer);
+    m_player.draw(m_pRenderer);
 
-    TheTextureManager::Instance()->drawFrame("animate",492,130,128,82,0,m_currentFrame,m_pRenderer);
+    /* TheTextureManager::Instance()->drawbackground("2D 배경",0,0,1024,768,m_pRenderer);
+    TheTextureManager::Instance()->draw("animate",0,0,128,82,m_pRenderer);
+    TheTextureManager::Instance()->drawFrame("animate",292,130,128,82,0,m_currentFrame,m_pRenderer); */
     
     SDL_RenderPresent(m_pRenderer);
 

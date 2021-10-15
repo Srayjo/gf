@@ -3,6 +3,8 @@
 
 #include "SDL.h"
 #include "TextureManager.h"
+#include "GameObject.h"
+#include "Player.h"
 
 class Game {
   public:
@@ -10,7 +12,7 @@ class Game {
     ~Game(){}
 
     bool Init(const char *title, int xpos, int ypos, int width, int height, int flags);
-    
+
     void render();
     void update();
     bool running();
@@ -18,6 +20,10 @@ class Game {
     void clean();
 
     int m_currentFrame;
+
+    // 각 클래스에 대한 멤버 변수 추가
+    GameObject m_go; 
+    Player m_player;
 
   private:
     SDL_Window* m_pWindow;
