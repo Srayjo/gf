@@ -15,6 +15,9 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
     } else{return false;}
   } else{return false;}
   
+  if(!TheTextureManager::Instance()->load("Assets/animate-alpha.png","animate",m_pRenderer))
+  {return false;}
+
   m_go.load(100,100,128,82,"animate");
   m_player.load(300,300,128,82,"animate");
 
