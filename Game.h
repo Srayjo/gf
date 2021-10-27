@@ -2,6 +2,7 @@
 #define _Game_
 
 #include "SDL.h"
+#include "TextureManager.h"
 
 class Game{
   public:
@@ -14,9 +15,9 @@ class Game{
   bool running();
   void handleEvents();
   void clean();
-SDL_Texture* m_pTexture;
-SDL_Rect m_sourceRectangle;
-SDL_Rect m_destinationRectangle;
+
+  TextureManager m_textureManager;
+  int m_currentFrame;
 
 
   private:
