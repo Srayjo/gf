@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _Game_
+#define _Game_
 
 #include "SDL.h"
 
@@ -13,9 +14,15 @@ class Game{
   bool running();
   void handleEvents();
   void clean();
+SDL_Texture* m_pTexture;
+SDL_Rect m_sourceRectangle;
+SDL_Rect m_destinationRectangle;
+
 
   private:
     SDL_Window* m_pWindow;
     SDL_Renderer* m_pRenderer;
     bool m_bRunning;
 };
+
+#endif
