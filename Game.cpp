@@ -1,4 +1,6 @@
 #include "Game.h"
+#include "SDL_image.h"
+
 
 bool Game::init(const char* title, int xpos, int ypos, int width, int height, int flags)
 {
@@ -13,7 +15,7 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
     } else{return false;}
   } else{return false;}
 
-  SDL_Surface* pTempSurface =SDL_LoadBMP("Assets/animate.bmp");
+  SDL_Surface* pTempSurface =IMG_Load("Assets/animate.png");
   m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer,pTempSurface);
 
   SDL_FreeSurface(pTempSurface);
@@ -38,6 +40,7 @@ void Game::update()
 void Game::render()
 {
   SDL_RenderClear(m_pRenderer);
+  SDL_SetRenderDrawColor(m_pRenderer,255,0,0,255);
   SDL_RenderCopy(m_pRenderer,m_pTexture,&m_sourceRectangle,&m_destinationRectangle);
   SDL_RenderPresent(m_pRenderer);
 }
