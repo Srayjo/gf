@@ -2,6 +2,8 @@
 #include "SDL.h"
 #include "TextureManager.h"
 
+Game* Game::s_pInstance=0;
+
 bool Game::Init(const char *title, int xpos, int ypos, int width, int height, int flags)
 {
   // 윈도우 * 랜더러 등 생성을 위해 SDL_Init() 정의
