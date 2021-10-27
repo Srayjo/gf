@@ -1,68 +1,30 @@
-#include <stdio.h>
-#include<SDL.h>
-SDL_Window* g_pWindow=0;
-SDL_Renderer* g_pRenderer=0;
-bool g_bRunning = false;
+#include <SDL.h>
 
-bool init(const char* title,int xpos,int ypos, int height,
-int width, int flags)
-{
-  if(SDL_Init(SDL_INIT_EVERYTHING)>=0)
+SDL_Window* g_pWindow = 0;
+SDL_Renderer* g_pRenderer = 0;
+
+int main(int argc, char* args[]){
+
+  if (SDL_Init(SDL_INIT_EVERYTHING) >= 0)
   {
-    g_pWindow =SDL_CreateWindow(title,xpos,ypos,height,width,flags);
+    g_pWindow = SDL_CreateWindow("Setting up SDL", SDL_WINDOWPOS_CENTERED,
+    SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_SHOWN);
 
-    if(g_pWindow !=0)
-    {
-      g_pRenderer=SDL_CreateRenderer(g_pWindow,-1,0);
-    }
-  }
-  else
+  if( g_pWindow != 0)
   {
-    return false;
+    g_pRenderer = SDL_CreateRenderer(g_pWindow, -1, 0);
   }
-
-  SDL_SetRenderDrawColor(g_pRenderer,0,0,0,255);
-
-  return true;
+} 
+else {
+  return 1;
 }
-
-void UpDate()
-{
-  SDL_SetRenderDrawColor(g_pRenderer,1,45,145,250);
-}
-
-void render()
-{
+  SDL_SetRenderDrawColor(g_pRenderer, 0,0,0,255);
   SDL_RenderClear(g_pRenderer);
   SDL_RenderPresent(g_pRenderer);
-}
 
-int main(int argc, char* args[])
-{
-  if(SDL_Init(SDL_INIT_EVERYTHING)>=0)
-  {
-    if(init("Breaking Up HelloSDL",SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,640,480, SDL_WINDOW_SHOWN))
-  {
-    g_bRunning=true;
-    
-  }
-  else
-  {
-    return 1;
-  }
-
-  while(g_bRunning)
-  {
-    render();
-    SDL_Delay(5000);
-    UpDate();
-    render();
-    SDL_Delay(5000);
-    g_bRunning=false;
-    SDL_Quit();
-  }
-
-  }
+  SDL_Delay(5000);
+  SDL_Quit();
   return 0;
 }
-// 명규 ... 
+
+
