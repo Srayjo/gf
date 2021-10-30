@@ -1,20 +1,16 @@
 #include "Player.h"
 
+Player::Player(const LoaderParams* pParams) : SDLGameObject(pParams){}
 
-void Player::load(int x, int y, int width, int height, std::string textureID)
+void Player::draw()
 {
-  // GameObject load() 함수 재정의 
-  GameObject::load(x, y, width, height, textureID);
-}
-
-void Player::draw(SDL_Renderer* pRenderer)
-{
-  // GameObject draw() 함수 재정의 
-  GameObject::draw(pRenderer);
+  SDLGameObject::draw();
 }
 
 void Player::update()
 {
-  // GameObject 멤버 변수 m_x 재정의 후 덮어쓰기
-    m_x -= 1;
+   m_x -= 1;
+   m_currentFrame = ((SDL_GetTicks()/100)%6);
 }
+
+void Player::clean(){}

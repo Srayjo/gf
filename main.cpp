@@ -5,7 +5,7 @@
 
 int main(int argc, char* args[])
 {
-  if(TheGame::Instance()->Init("Chapter 1",100,100,640,480,false))
+  if(TheGame::Instance()->init("Chapter 1",100,100,640,480,false))
     {
     while(TheGame::Instance()->running()){
       TheGame::Instance()->handleEvents();
