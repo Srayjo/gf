@@ -2,8 +2,10 @@
 #include "Game.h"
 #include "TextureManager.h"
 
+// 속도 (0,0) 초기화
 SDLGameObject::SDLGameObject(const LoaderParams* pParams)
-  : GameObject(pParams), m_position(pParams->getX(), pParams->getY()) {
+  : GameObject(pParams), m_position(pParams->getX(), pParams->getY()), m_velocity(0,0), m_acceleration(0,0)
+  {
   m_x = pParams->getX();
   m_y = pParams->getY();
   m_width = pParams->getWidth();
@@ -19,6 +21,9 @@ void SDLGameObject::draw(){
 
 void SDLGameObject::update()
 {
-  m_position.setX(m_position.getX() + 1 );
-  m_position.setY(m_position.getY() + 1 );
+  m_velocity += m_acceleration;
+  m_position += m_velocity;
+  
+/*  m_position.setX(m_position.getX() + 1 );
+  m_position.setY(m_position.getY() + 1 );  */
 }

@@ -1,5 +1,5 @@
 #include "Vector2D.h"
-
+// 사칙 연산
 Vector2D Vector2D::operator+(const Vector2D& v2) const
 {
   return Vector2D(m_x + v2.m_x, m_y + v2.m_y); 
