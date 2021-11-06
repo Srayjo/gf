@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "LoaderParams.h"
+#include "InputHandler.h"
 
 
 Game* Game::s_pInstance=0;
@@ -32,6 +33,7 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height, in
 
   void Game::update()
   {
+    
    for( int i = 0; i<m_gameObjects.size(); i++){
       m_gameObjects[i]->update();
     }
@@ -57,16 +59,7 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height, in
 
   void Game::handleEvents()
   {
-    SDL_Event event;
-    if(SDL_PollEvent(&event)){
-      switch(event.type){
-        case SDL_QUIT:
-        m_bRunning =false; // 게임 루프 종료
-        break;
-        default:
-        break;
-      }
-    }
+    TheInputHandler::Instance()->update();
   }
   void Game::clean() // 사용이 끝난 윈도우&랜더러 삭제 및 SDL 종료
   {
