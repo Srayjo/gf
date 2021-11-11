@@ -41,6 +41,17 @@ void InputHandler::update()
       m_mouseButtonStates[RIGHT] = false;
       }
     }
+    if(event.type == SDL_QUIT){
+      TheGame::Instance()->quit();
+    }
+    // 키보드 눌린 것이 올라갔을 때
+    if(event.type == SDL_KEYUP){
+      m_keystates = SDL_GetKeyboardState(0);
+    }
+    // 키보드를 눌렀을 때
+    if(event.type == SDL_KEYDOWN){
+      m_keystates = SDL_GetKeyboardState(0);
+    }
   }
 }
 
