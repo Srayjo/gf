@@ -3,22 +3,57 @@
 
 InputHandler* InputHandler::s_pInstance = 0;
 
+InputHandler::InputHandler()
+{
+  m_mousePosition = new Vector2D(0,0);
+  for(int i = 0; i < 3; i++) {
+    m_mouseButtonStates.push_back(false); // f
+  }
+}
+
 void InputHandler::update()
 {
   SDL_Event event;
-  while(SDL_PollEvent(&event)){
-    if(event.type == SDL_QUIT){
-      TheGame::Instance()->quit();
+  while (SDL_PollEvent(&event)){
+    if (event.type == SDL_MOUSEMOTION){
+      m_mousePosition->setX(event.motion.x);
+      m_mousePosition->setY(event.motion.y);
     }
-    // 키보드 눌린 것이 올라갔을 때
-    if(event.type == SDL_KEYUP){
-      m_keystates = SDL_GetKeyboardState(0);
+    else if (event.type == SDL_MOUSEBUTTONDOWN) {
+      if (event.button.button == SDL_BUTTON_LEFT) {
+      m_mouseButtonStates[LEFT] = true;
+      }
+      if (event.button.button == SDL_BUTTON_MIDDLE) {
+      m_mouseButtonStates[MIDDLE] = true;
+      }
+      if (event.button.button == SDL_BUTTON_RIGHT) {
+      m_mouseButtonStates[RIGHT] = true;
+      }
     }
-    // 키보드를 눌렀을 때
-    if(event.type == SDL_KEYDOWN){
-      m_keystates = SDL_GetKeyboardState(0);
+    else if (event.type == SDL_MOUSEBUTTONUP) {
+      if (event.button.button == SDL_BUTTON_LEFT) {
+      m_mouseButtonStates[LEFT] = false;
+      }
+      if (event.button.button == SDL_BUTTON_MIDDLE) {
+      m_mouseButtonStates[MIDDLE] = false;
+      }
+      if (event.button.button == SDL_BUTTON_RIGHT) {
+      m_mouseButtonStates[RIGHT] = false;
+      }
     }
   }
+}
+
+// 마우스 버튼 클릭 여부
+bool InputHandler::getMouseButtonState(int buttonNumber)
+{
+  return m_mouseButtonStates[buttonNumber];
+}
+
+// 마우스 위치 반환
+Vector2D* InputHandler::getMousePosition()
+{
+  return m_mousePosition;
 }
 
 bool InputHandler::isKeyDown(SDL_Scancode key)
